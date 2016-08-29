@@ -29,7 +29,7 @@ unsigned int timeInterval=0;
 
 
 void setup() {
-Serial.begin(baudRate);  					//initialisation of the Serial communication at a baudrate=9600
+Serial.begin(baudRate);  				//initialisation of the Serial communication at a baudrate=9600
 pinMode(infraredSensor,INPUT);				//initialisation of the infrared sensor pin as INPUT 
 value=digitalRead(infraredSensor);			//initialisation of the value and the oldValue variables to the initial state of the sensor
 oldValue=digitalRead(infraredSensor);
@@ -55,7 +55,7 @@ if(Serial.available())						// if there is a char sent from the terminal , the c
   	Serial.print(")");
   	for(int i=0;i<intervalCounter;i++)		//send the  captured Ir frame
   	{
-    	Serial.print(irVals[i]);
+    	Serial.print(rawData[i]);
     	Serial.print(",");
     	}
   	}
@@ -84,7 +84,7 @@ if((value!=oldValue)&&(flag==0))
   flag=1;                           //set the flag to 1
   }
 //if the current sensor value is diffrent from the old state for the secound time (flag==1) we compute the real time interval 
- else if((val!=oldVal)&&(flag==1))
+ else if((value!=oldValue)&&(flag==1))
 {
 
   timeInterval=micros()-timeInterval;  		//calculate the real time interval
